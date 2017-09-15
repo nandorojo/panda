@@ -1,0 +1,26 @@
+/* Base -> Typography Styles */
+* {
+    font-family: map-get($font, 'familyPrimary')!important;
+}
+
+body {
+    font-size: 110%;
+    color: map-get($color, 'foreground');
+}
+
+a {
+    text-decoration: none;
+}
+
+// Highlighting text
+::-moz-selection {
+    /* Code for Firefox */
+    color: map-get($selection, 'background');
+    background: map-get($selection, 'color');
+}
+
+::selection {
+    /* Code for Firefox */
+    color: map-get($selection, 'background');
+    background: map-get($selection, 'color');
+}

@@ -1,0 +1,18 @@
+.tablet-hidden {
+    @include mq($from: tablet) {
+        display: none;
+    }
+}
+
+.overflowHidden {
+    overflow: hidden;
+}
+
+.center {
+	text-align: center;
+}
+
+.hideUp {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%)
+}

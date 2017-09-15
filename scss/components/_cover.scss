@@ -1,0 +1,22 @@
+/* Components -> Cover Styles */
+
+.imageTextOverlay {
+    height: 600px;
+    padding: 100px 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background: $color-background;
+    color: $color-foreground;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @include mq($from: tablet) {
+        height: 100vh;
+    }
+}

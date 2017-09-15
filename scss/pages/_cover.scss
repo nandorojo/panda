@@ -1,0 +1,13 @@
+/* Pages -> Cover Styles */
+
+.fullscreen {
+    // change display for fullscreen view
+    @include mq($from: tablet) {
+        .configure {
+            display: none;
+        }
+        .display {
+            margin: 0
+        }
+    }
+}

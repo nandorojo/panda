@@ -1,0 +1,37 @@
+.display {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    @include mq($from: tablet) {
+        margin-left: 350px;
+    }
+    // add flash efect when an item is added to the display
+    & > * {
+        animation: listItemFlash 1s ease;
+    }
+}
+
+.beingEdited {
+    padding: 2px;
+    border: dashed 2px $color-primary;
+}
+
+.fullscreenTrigger {
+    z-index: 1;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: x-small;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px;
+    line-height: 1em;
+    cursor: pointer;
+    border: solid 1px;
+    color: $color-foreground;
+}
+
+.templates {
+	display: none;
+}

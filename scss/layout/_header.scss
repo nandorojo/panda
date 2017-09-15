@@ -1,0 +1,18 @@
+/* Layout -> Header Styles */
+header.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px;
+    @include transition-all;
+    transition-delay: .5s;
+    z-index: 1;
+    transform: translateY(-100%);
+    .logo {
+        font-weight: bold;
+    }
+    &.active {
+        transform: translateY(0)
+    }
+}

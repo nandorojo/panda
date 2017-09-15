@@ -1,0 +1,28 @@
+/* Components -> Button Styles */
+
+.button {
+    padding: 15px 30px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    border-radius: 3px;
+    color: map-get($color, 'background');
+    background: map-get($color, 'primary');
+    background-size: 200% auto;
+    background-position: initial;
+    @include transition-all;
+    transition-duration: .25s;
+    &:hover {
+        transform: translateY(-1px);
+        background-position: 99% center;
+    }
+    &.outline {
+        color: black;
+        padding: 12px 27px;
+        border: solid 3px;
+        background: transparent;
+    }
+    @include mq($from: tablet) {
+        margin: 5px;
+    }
+}

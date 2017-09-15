@@ -1,0 +1,10 @@
+/* Themes -> Theme partial */
+
+// General Styles
+.innerWrapper {
+    @include mq($from: tablet) {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+}

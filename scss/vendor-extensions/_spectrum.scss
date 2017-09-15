@@ -1,0 +1,77 @@
+.sp-container,
+.sp-container button,
+.sp-container input,
+.sp-color,
+.sp-hue,
+.sp-clear,
+.sp-palette-container {
+    font-family: inherit;
+    border: none;
+    &:hover {
+        border: none;
+    }
+}
+
+.sp-replacer.sp-light {
+    border: none;
+    background: transparent;
+    color: inherit;
+}
+
+.sp-preview {
+    padding: 15px 30px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    border-radius: 3px;
+    color: map-get($color, 'background');
+    background-size: 200% auto;
+    background-position: initial;
+    @include transition-all;
+    transition-duration: .25s;
+    border: none;
+    padding: 20px 50px;
+}
+
+.sp-dd {
+    padding: 1.3em 0;
+}
+
+.sp-preview-inner {
+    @include display-flex;
+    @include justify-content(center);
+    @include flex-center-vertical;
+    border: 3px solid;
+    border-radius: 3px;
+    font-size: small; // text that shows the HEX value
+    font-weight: bold;
+}
+
+.sp-container.sp-light.sp-palette-buttons-disabled.sp-initial-disabled {
+    border: none;
+    background: $color-background;
+    color: $color-foreground;
+    -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+input.sp-input {
+    border: solid 3px $color-foreground;
+    &:focus {
+        border: solid 3px $color-foreground;
+    }
+    &:hover {
+        border: solid 3px $color-foreground;
+    }
+}
+
+button.sp-choose,
+button.sp-choose:hover {
+    background: $color-primary;
+    color: $color-foreground;
+}
+
+.sp-slider {
+    border: solid 2px black;
+    background: none;
+}

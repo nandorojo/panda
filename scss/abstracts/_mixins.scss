@@ -1,0 +1,167 @@
+/* Abstracts -> mixins partial */
+
+
+/* Show and hide */
+
+@mixin hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@mixin show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Displays and alignments */
+
+// Mixin to make display flex on all widths
+@mixin display-flex {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+}
+
+// Mixin to center objects vertically with flexbox
+@mixin flex-center-vertical {
+    -ms-flex-align: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+// Row / column align flex
+@mixin flex-direction($direction) {
+    /* Safari 6.1+ */
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: $direction;
+    flex-direction: $direction;
+}
+
+// Justify content
+@mixin justify-content($justify) {
+    -webkit-box-pack: $justify;
+    -ms-flex-pack: $justify;
+    justify-content: $justify;
+}
+
+// Cubic animation
+@mixin transition-all {
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+
+/* Positions */
+
+// Relative position
+@mixin position-relative {
+    position: relative;
+}
+
+// Fixed position
+@mixin position-fixed {
+    position: fixed;
+}
+
+// Absolute position
+@mixin position-absolute {
+    position: absolute;
+}
+
+// Absolute positioning top left
+@mixin position-tl($top, $left) {
+    top: $top;
+    left: $left;
+}
+
+// Absolute positioning top right
+@mixin position-tl($top, $right) {
+    top: $top;
+    right: $right;
+}
+
+
+/* widths and heights */
+
+//Full width and height
+@mixin full-width-height {
+    height: 100%;
+    width: 100%;
+}
+
+//Different widths
+@mixin width-full {
+    width: 100%;
+}
+
+@mixin width-half {
+    width: 50%;
+}
+
+@mixin width-third {
+    width: 33%;
+}
+
+@mixin width-quarter {
+    width: 25%;
+}
+
+//Combination Height
+//This subtracts a pixel width from a percentage width
+@mixin height-combo($percent, $pixels) {
+    height: calc(#{$percent} - #{$pixels});
+}
+
+//Combination Width
+//This subtracts a pixel width from a percentage width
+@mixin width-combo($percent, $pixels) {
+    width: calc(#{$percent} - #{$pixels});
+}
+
+// Mixin to keep element from being selected
+@mixin no-select {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+@mixin headerBackground {
+    background: $header-background-two;
+    /* fallback for old browsers */
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-gradient(180deg, from($header-background-one), to($header-background-two));
+    background: -webkit-gradient(linear, left top, left bottom, from($header-background-one), to($header-background-two));
+    background: linear-gradient(180deg, $header-background-one, $header-background-two);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+// Button style
+@mixin button_styles {
+    padding: $padding/2 $padding*2;
+    margin: $padding/2 $padding/2 $padding/2 0;
+    font-weight: bold;
+    border-radius: $button-border-radius;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+@mixin bobble ($name, $time, $looping) {
+    -webkit-animation: $name $time $looping; /* Safari 4+ */ /* Fx 5+ */ /* Opera 12+ */
+    animation:         $name $time $looping; /* IE 10+, Fx 29+ */
+}

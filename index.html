@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <!-- jQuery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- Image uploader 
+    <script>
+        UPLOADCARE_LOCALE = "en";
+        UPLOADCARE_TABS = "file url facebook gdrive gphotos dropbox instagram evernote flickr skydrive";
+        UPLOADCARE_PUBLIC_KEY = "5b000ae8bbc49a0b7710";
+
+    </script>
+    <script src="https://ucarecdn.com/libs/widget/3.1.2/uploadcare.full.min.js" charset="utf-8"></script>
+    -->
+</head>
+<html>
+
+<body>
+    <div class="credits" style="display: none">
+        text by useiconic.com from the Noun Project
+    </div>
+    <noscript>
+       <div class="noScript modal">
+          <div class="container">
+          <div class="row justify-content-center">
+             <div class=" col-md-6">
+             <p>
+           This website only works with Javascript enabled. If you don't know what that means, try updating your browser or using a different browser.
+             </p>                 
+             </div>
+              
+          </div>              
+          </div>
+       </div>
+   </noscript>
+    <page id="index" class="active">
+        <div class="container center">
+            <h1>
+                What type of HTML element would you like to generate?
+            </h1>
+            <div>
+                <a href="cover.html" class="button">
+                    Background image with text
+                </a>
+            </div>
+        </div>
+    </page>
+    <page id="cover">
+        <div class="innerWrapper">
+            <div class="configure">
+                <div class="configureHeader">
+                    <div class="configureHeaderInner">
+                        <div class="configureBack">
+                            Back
+                        </div>
+                        <h1 class="configureTitle">
+                            The editor
+                        </h1>
+                    </div>
+                </div>
+                <div class="configureInner">
+                    <!-- Image uploader -->
+                    <input type="hidden" role="uploadcare-uploader" name="backgroundImage" data-crop="free, 16:9, 4:3, 5:4, 1:1" data-images-only="true" data-image-shrink="1024x1024" />
+
+                    <div class="book active" data-bookType="stackList">
+                        <ul>
+                            <li data-stackTypeTrigger="settings">
+                                <div>
+                                    General Preferences
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper"><line fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="12" y1="4" x2="23" y2="4" stroke-linejoin="miter"/> <line fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="1" y1="4" x2="4" y2="4" stroke-linejoin="miter"/> <rect x="4" y="1" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="4" height="6" stroke-linejoin="miter"/> <line data-color="color-2" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="22" y1="12" x2="23" y2="12" stroke-linejoin="miter"/> <line data-color="color-2" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="1" y1="12" x2="14" y2="12" stroke-linejoin="miter"/> <rect data-color="color-2" x="14" y="9" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="4" height="6" stroke-linejoin="miter"/> <line fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="12" y1="20" x2="23" y2="20" stroke-linejoin="miter"/> <line fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="1" y1="20" x2="4" y2="20" stroke-linejoin="miter"/> <rect x="4" y="17" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="4" height="6" stroke-linejoin="miter"/></g></svg>
+                            </li>
+                            <li data-stackTypeTrigger="colors">
+                                <div>
+                                    Color Pallet
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper"><rect x="1" y="1" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="9" height="9" stroke-linejoin="miter" style=" stroke: mediumpurple;"></rect> <rect data-color="color-2" x="14" y="1" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="9" height="9" stroke-linejoin="miter" style=" stroke: yellow;"></rect> <rect data-color="color-2" x="1" y="14" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="9" height="9" stroke-linejoin="miter" style=" stroke: red;"></rect> <rect x="14" y="14" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="9" height="9" stroke-linejoin="miter" style=" stroke: aquamarine;"></rect></g></svg>
+                            </li>
+                            <li data-stackTypeTrigger="typography">
+                                <div>
+                                    Typography
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" data-icon="text" viewBox="0 0 32 40" x="0px" y="0px"><path d="M1 0l-1 8h1c0-2.8 2.2-5 5-5h7v25.5c0 1.4-1.1 2.5-2.5 2.5h-2.5v1h16v-1h-2.5c-1.4 0-2.5-1.1-2.5-2.5v-25.5h7c2.8 0 5 2.2 5 5h1l-1-8h-30z"/></svg>
+                            </li>
+                            <li data-stackTypeTrigger="deckListCurrent">
+                                <div>
+                                    Page Editor
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper"><polygon data-stroke="none" points="16,1 16,7 22,7 " stroke-linejoin="miter" stroke-linecap="square"/> <polyline data-cap="butt" fill="none" stroke-width="2" stroke-miterlimit="10" points="16,1 16,7 22,7 " stroke-linejoin="miter" stroke-linecap="butt"/> <polygon fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="16,1 2,1 2,23 22,23 22,7 " stroke-linejoin="miter"/> <line data-color="color-2" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="7" y1="7" x2="11" y2="7" stroke-linejoin="miter"/> <line data-color="color-2" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="7" y1="12" x2="17" y2="12" stroke-linejoin="miter"/> <line data-color="color-2" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="7" y1="17" x2="17" y2="17" stroke-linejoin="miter"/></g></svg>
+                            </li>
+                        </ul>
+                    </div>
+                    <div data-stackType="deckListCurrent" class="stack">
+                        <ul class="deckListCurrentItems">
+
+                        </ul>
+                        <li class="deck-Adder">
+                            <div>
+                                Add new element
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 32 32" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper"><polyline data-cap="butt" data-color="color-2" fill="none" stroke-width="2" stroke-miterlimit="10" points="24.7,13 30,16 16,24 2,16 7.3,13 " stroke-linejoin="miter" stroke-linecap="butt"></polyline> <polyline data-cap="butt" data-color="color-2" fill="none" stroke-width="2" stroke-miterlimit="10" points="24.7,19 30,22 16,30 2,22 7.2,19 " stroke-linejoin="miter" stroke-linecap="butt"></polyline> <polygon fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="2,10 16,2 30,10 16,18 " stroke-linejoin="miter"></polygon></g></svg>
+                        </li>
+                        <div data-stackType="deckListNew">
+                            <ul>
+                                <li data-deckTypeCreator="imageTextOverlay">
+                                    <div class="deckListItemTitle">
+                                        Hero with text overlay
+                                    </div>
+                                    <svg class="pencilIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper" ><line data-cap="butt" data-color="color-2" fill="none" stroke-width="2" stroke-miterlimit="10" x1="14.5" y1="4.5" x2="19.5" y2="9.5" stroke-linejoin="miter" stroke-linecap="butt"/> <line data-cap="butt" data-color="color-2" fill="none" stroke-width="2" stroke-miterlimit="10" x1="3" y1="16" x2="8" y2="21" stroke-linejoin="miter" stroke-linecap="butt"/> <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M8,21l-6,1l1-6 L16.586,2.414c0.781-0.781,2.047-0.781,2.828,0l2.172,2.172c0.781,0.781,0.781,2.047,0,2.828L8,21z" stroke-linejoin="miter"/></g></svg>
+                                </li>
+                                <li data-deckTypeCreator="header">
+                                    <div class="deckListItemTitle">
+                                        Navigation header
+                                    </div>
+                                    <svg class="pencilIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper" ><line data-cap="butt" data-color="color-2" fill="none" stroke-width="2" stroke-miterlimit="10" x1="14.5" y1="4.5" x2="19.5" y2="9.5" stroke-linejoin="miter" stroke-linecap="butt"/> <line data-cap="butt" data-color="color-2" fill="none" stroke-width="2" stroke-miterlimit="10" x1="3" y1="16" x2="8" y2="21" stroke-linejoin="miter" stroke-linecap="butt"/> <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M8,21l-6,1l1-6 L16.586,2.414c0.781-0.781,2.047-0.781,2.828,0l2.172,2.172c0.781,0.781,0.781,2.047,0,2.828L8,21z" stroke-linejoin="miter"/></g></svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="deckEditors" class="stack">
+                    </div>
+                </div>
+                <div class="configureFooter">
+                    <div class="button exportTrigger">
+                        Export
+                    </div>
+                </div>
+            </div>
+            <div class="display">
+                <div class="fullscreenTrigger">
+                    Fullscreen
+                </div>
+            </div>
+        </div>
+        <div class="templates">
+            <div class="templateStylesheets">
+                <div data-decktypestylesheet="imageTextOverlay">
+                    <div data-decktypestylesheetprefix="prefix">
+                        <style type="text/css">
+                            .imageTextOverlay {
+                                height: 600px;
+                                padding: 100px 15px;
+                                display: -webkit-box;
+                                display: -ms-flexbox;
+                                display: flex;
+                                -webkit-box-align: center;
+                                -ms-flex-align: center;
+                                align-items: center;
+                                -webkit-box-pack: center;
+                                -ms-flex-pack: center;
+                                justify-content: center;
+                                background: white;
+                                color: #00274c;
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                            }
+                            
+                            @media (min-width: 48em) {
+                                .imageTextOverlay {
+                                    height: 100vh
+                                }
+                            }
+
+                        </style>
+                    </div>
+                    <div data-decktypestylesheetprefix="noPrefix">
+                        <style type="text/css">
+                            .imageTextOverlay {
+                                height: 600px;
+                                padding: 100px 15px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background: white;
+                                color: #00274c;
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                            }
+                            @media (min-width: 48em) {
+                                .imageTextOverlay {
+                                    height: 100vh
+                                }
+                            }
+                        </style>
+                    </div>
+                </div>
+            </div>
+            <div class="templateDecks">
+                <div data-deckTypeTemplateEditor="imageTextOverlay" class="deck-Editor">
+                    <h2 class="deck-Title">
+                        Image with text overlay
+                    </h2>
+                    <div class="card-Editor">
+                        <h3>
+                            Heading Text
+                        </h3>
+                        <textarea type="text"></textarea>
+                    </div>
+                    <div class="card-Editor">
+                        <h3>
+                            Subheading Text
+                        </h3>
+                        <textarea type="text"></textarea>
+                    </div>
+                    <div class="card-Editor">
+                        <h3>
+                            Primary Button
+                        </h3>
+                        <input type="text">
+                    </div>
+                    <div class="card-Editor">
+                        <h3>
+                            Secondary Button
+                        </h3>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <h3>
+                            Background Image
+                        </h3>
+                    </div>
+                    <div class="deckAdvancedSettings">
+                        <div class="deckSetting" id="coverBackgroundColor">
+                            <h3>
+                                Background color
+                            </h3>
+                            <input type="text" class="dropper">
+                        </div>
+                        <div class="deckSetting" id="coverTextColor">
+                            <h3>
+                                Text color
+                            </h3>
+                            <input type="text" class="dropper">
+                        </div>
+                    </div>
+                    <div class="deckDelete">
+                        <div class="deckDeleteTitle">
+                            Delete Hero with text overlay
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper"><polyline fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="20,9 20,23 4,23 4,9 " stroke-linejoin="miter"/> <line fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="1" y1="5" x2="23" y2="5" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="12" y1="12" x2="12" y2="18" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="8" y1="12" x2="8" y2="18" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="16" y1="12" x2="16" y2="18" stroke-linejoin="miter"/> <polyline fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="8,5 8,1 16,1 16,5 " stroke-linejoin="miter"/></g></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="templateDeckDisplays">
+                <div data-decktypetemplate="imageTextOverlay" class="imageTextOverlay">
+                    <div class="center">
+                        <h1 class="card-Display">
+                            The easiest way to build in HTML + CSS
+                        </h1>
+                        <p class="card-Display">
+                            A visual code generator, meant for developers.
+                        </p>
+                        <a class="card-Display button">
+                            Sign Up
+                        </a>
+                        <a class="card-Display button outline">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </page>
+    <!-- color dropper jawn -->
+    <script src="js/spectrum.js"></script>
+    <!-- pop-up notifier jawn -->
+    <script src="js/vendor/notyf.js"></script>
+    <!-- different screens previewer jawn -->
+    <script src="js/vendor/previewer.min.js"></script>
+    <!-- Beautifyer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.14/beautify-html.js"></script>
+    <!-- Custom javascript -->
+    <script src="js/app.js" type="text/javascript"></script>
+    <!-- Typekit -->
+    <script src="https://use.typekit.net/rjc2uyz.js"></script>
+    <script>
+        try {
+            Typekit.load({
+                async: true
+            });
+        } catch (e) {}
+
+    </script>
+</body>
+
+
+
+
+</html>

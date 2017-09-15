@@ -1,0 +1,35 @@
+/* Base -> Reset Styles */
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+::-webkit-scrollbar { // hide annoying scroll bars
+    display: none;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+    margin: 0;
+}
+
+page {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

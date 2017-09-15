@@ -1,0 +1,247 @@
+/*!
+ * Previewer v0.1.0
+ * https://github.com/fengyuanchen/previewer
+ *
+ * Copyright (c) 2014-2015 Fengyuan Chen
+ * Released under the MIT license
+ *
+ * Date: 2015-07-03T15:30:54.865Z
+ */
+.previewer-open
+{
+    overflow: hidden !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.previewer-open > *
+{
+    display: none !important;
+}
+.previewer-open > .previewer-container
+{
+    display: block !important;
+}
+.previewer-container
+{
+    position: absolute;
+    z-index: 20140520;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    overflow: auto;
+
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+
+    background-color: #fcfcfc;
+
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+.previewer-container *,
+.previewer-container *:before,
+.previewer-container *:after
+{
+    box-sizing: border-box;
+}
+.previewer-mainbody
+{
+    height: 100%;
+    margin-left: 60px;
+}
+.previewer-mainbody > iframe
+{
+    display: block;
+    overflow: hidden;
+
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    border: 0;
+}
+.previewer-sidebar
+{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 61px;
+
+    border-right: 1px solid #fcfcfc;
+    background-color: #fff;
+}
+.previewer-sidebar > button
+{
+    font-size: 30px;
+    line-height: normal;
+
+    display: block;
+
+    width: 60px;
+    height: 60px;
+    padding: 0;
+
+    opacity: .2;
+    color: #333;
+    border: 0;
+    background-color: #fff;
+    background-image: none;
+
+    filter: alpha(opacity=20);
+}
+.previewer-sidebar > button:hover,
+.previewer-sidebar > button:focus
+{
+    opacity: .5;
+    outline: none;
+
+    filter: alpha(opacity=50);
+}
+.previewer-nav
+{
+    margin-bottom: 0;
+    padding-left: 0;
+
+    list-style: none;
+}
+.previewer-nav > li > a
+{
+    display: block;
+
+    height: 60px;
+    padding: 10px;
+
+    cursor: pointer;
+
+    border: 1px solid transparent;
+}
+.previewer-nav > li > a:hover,
+.previewer-nav > li > a:focus,
+.previewer-nav > li > a.active
+{
+    border-left-color: #69f;
+    background-color: #fcfcfc;
+}
+.previewer-nav > li > a.active
+{
+    cursor: default;
+}
+.previewer-nav > li > a > i
+{
+    position: relative;
+
+    display: block;
+}
+.previewer-nav > li > a > i:before,
+.previewer-nav > li > a > i:after
+{
+    position: absolute;
+
+    display: block;
+
+    content: ' ';
+
+    border: 1px solid #333;
+}
+.previewer-nav > li > a[data-preview='phone'] > i
+{
+    width: 24px;
+    height: 40px;
+    margin: 0 8px;
+
+    border: 1px solid #333;
+}
+.previewer-nav > li > a[data-preview='phone'] > i:before
+{
+    top: 3px;
+    left: 1px;
+
+    width: 20px;
+    height: 29px;
+}
+.previewer-nav > li > a[data-preview='phone'] > i:after
+{
+    bottom: 1px;
+    left: 10px;
+
+    width: 4px;
+    height: 4px;
+}
+.previewer-nav > li > a[data-preview='tablet'] > i
+{
+    width: 30px;
+    height: 40px;
+    margin: 0 5px;
+
+    border: 1px solid #333;
+}
+.previewer-nav > li > a[data-preview='tablet'] > i:before
+{
+    top: 3px;
+    left: 2px;
+
+    width: 24px;
+    height: 29px;
+}
+.previewer-nav > li > a[data-preview='tablet'] > i:after
+{
+    bottom: 1px;
+    left: 12px;
+
+    width: 4px;
+    height: 4px;
+}
+.previewer-nav > li > a[data-preview='laptop'] > i
+{
+    width: 40px;
+    height: 22px;
+    margin: 9px 0;
+
+    border-bottom: 1px solid #333;
+}
+.previewer-nav > li > a[data-preview='laptop'] > i:before
+{
+    bottom: 3px;
+    left: 4px;
+
+    width: 32px;
+    height: 18px;
+}
+.previewer-nav > li > a[data-preview='laptop'] > i:after
+{
+    display: none;
+}
+.previewer-nav > li > a[data-preview='desktop'] > i
+{
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+
+    border-bottom: 1px solid #333;
+}
+.previewer-nav > li > a[data-preview='desktop'] > i:before
+{
+    top: 0;
+    left: -5px;
+
+    width: 40px;
+    height: 24px;
+}
+.previewer-nav > li > a[data-preview='desktop'] > i:after
+{
+    bottom: 2px;
+    left: 10px;
+
+    width: 10px;
+    height: 1px;
+
+    border-width: 0;
+    background-color: #333;
+}

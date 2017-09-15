@@ -1,0 +1,16 @@
+textarea, input {
+    padding: 10px;
+    width: 100%;
+    background: lighten($color-foreground, 5%);
+    color: $color-background;
+    border: none;
+    border: solid 3px transparent;
+    &::placeholder {
+        color: $color-background;
+    }
+    &:focus {
+        border-color: $color-primary;
+        outline: none;
+    }
+    border-radius: 5px;
+}
