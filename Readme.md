@@ -1,7 +1,42 @@
-# theCoderrr
+# zign
 Generate useful HTML5 elements with clean CSS code. Edit visually and export a ready-to-insert block of code into your project. You can edit everything you need without messing up any of the good stuff.
 
 # Documentation
+## Static settings
+The static settings concert "non-dynamic" editors of the overall screen.
+
+The static settings at the moment include General Preferences, Collor Pallet, and Typography.
+
+These static settings all dictate something general for the project, such as its fonts, color scheme, font sizes, etc. Deck settings and card settings, if specified, override static settings.
+
+For instance, if the Collor pallet specifies `#533592` as the primary color, then the `.zign .button` will use this property.
+
+However, if a given card has a specified color, the CSS will be overridden: `#card-12-Display` will have its own background color.
+
+As always, this cascading form of hierarchy will be followed in the CSS output.
+
+It is not necessary to specify any settings beyond the static ones, but users still have the ability do to so.
+
+## Retrieving static settings
+
+In our default app.js file, each static setting is specified to have its initial array of empty values. That is, the General Preferences array is simply `[]`.
+
+Each array is within a json-like tree for simplicity.
+
+Upon initializing and document ready, our javascript will check to see if there is a `localstorage` object for saved settings. If there is, it will use its values accordingly.
+
+
+## Saving static settings
+*Note: In the future, the method of saving will likely use nodeJS and MongoDB, for a better UX and less bloated load. However, at the time of writing this, we'll be using strictly client-side code.*
+
+Whenever someone changes a static setting, a `function` will be called to update the browser's `localstorage`.
+
+Every single setting will be saved into the json structure. The method of doing so 
+
+Each general setting has its own array containing its settings. By default, on page load, it uses what is specified in general HTML. The exported CSS code when someone decides `.export` a project will reflect the current styles.
+
+
+
 ## Cards
 Cards are elements that are added within decks. Similar to decks, they are made from an initial template and can be edited (their text can be editied, at times images, etc.)
 
