@@ -15,6 +15,8 @@
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <!-- slick -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.8.0/slick.css"/>
     <!-- jQuery -->
     <script src="js/jquery-3.2.1.min.js"></script>
     <!-- Image uploader 
@@ -123,8 +125,8 @@
                     </div>
                 </div>
             </div>
-            <div class="display">
-                <div class="fullscreenTrigger">
+            <div class="display zign">
+                <div class="fullscreenTrigger hidden">
                     Fullscreen
                 </div>
             </div>
@@ -237,8 +239,77 @@
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper"><polyline fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="20,9 20,23 4,23 4,9 " stroke-linejoin="miter"/> <line fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="1" y1="5" x2="23" y2="5" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="12" y1="12" x2="12" y2="18" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="8" y1="12" x2="8" y2="18" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="16" y1="12" x2="16" y2="18" stroke-linejoin="miter"/> <polyline fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="8,5 8,1 16,1 16,5 " stroke-linejoin="miter"/></g></svg>
                     </div>
                 </div>
+                <div data-deckTypeTemplateEditor="header" class="deck-Editor">
+                    <h2 class="deck-Title">
+                        Navigation Header
+                    </h2>
+                    <div class="card-Editor">
+                        <h3>
+                            Logo Text
+                        </h3>
+                        <textarea type="text"></textarea>
+                    </div>
+                    <div class="card-Editor">
+                        <h3>
+                            Link
+                        </h3>
+                        <input type="text">
+                    </div>
+                    <div class="card-Editor">
+                        <h3>
+                            Link
+                        </h3>
+                        <input type="text">
+                    </div>
+                    <div class="card-Editor">
+                        <h3>
+                            Link
+                        </h3>
+                        <input type="text">
+                    </div>
+                    <div class="deckAdvancedSettings">
+                        <div class="deckSetting" id="coverBackgroundColor">
+                            <h3>
+                                Background color
+                            </h3>
+                            <input type="text" class="dropper">
+                        </div>
+                        <div class="deckSetting" id="coverTextColor">
+                            <h3>
+                                Text color
+                            </h3>
+                            <input type="text" class="dropper">
+                        </div>
+                    </div>
+                    <div class="deckDelete">
+                        <div class="deckDeleteTitle">
+                            Delete Hero with text overlay
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper"><polyline fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="20,9 20,23 4,23 4,9 " stroke-linejoin="miter"/> <line fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="1" y1="5" x2="23" y2="5" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="12" y1="12" x2="12" y2="18" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="8" y1="12" x2="8" y2="18" stroke-linejoin="miter"/> <line data-color="color-2" fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="16" y1="12" x2="16" y2="18" stroke-linejoin="miter"/> <polyline fill="none"  stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="8,5 8,1 16,1 16,5 " stroke-linejoin="miter"/></g></svg>
+                    </div>
+                </div>
             </div>
             <div class="templateDeckDisplays">
+                <div data-decktypetemplate="header" class="header">
+                    <div class="headerInner">
+                        <div class="card-Display logo">
+                            Zign
+                        </div>
+                        <div class="menu">
+                            <ul>
+                                <li class="card-Display">
+                                    Shop
+                                </li>
+                                <li class="card-Display">
+                                    Our Story
+                                </li>
+                                <li class="card-Display">
+                                    Download
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div data-decktypetemplate="imageTextOverlay" class="imageTextOverlay">
                     <div class="center">
                         <h1 class="card-Display">
@@ -266,6 +337,10 @@
     <script src="js/vendor/previewer.min.js"></script>
     <!-- Beautifyer -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.14/beautify-html.js"></script>
+    <!-- Slick -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.8.0/slick.min.js"></script>
+    <!-- Sortable drag and drop elements -->
+    <script src="js/vendor/sortable.js" type="text/javascript"></script>
     <!-- Custom javascript -->
     <script src="js/app.js" type="text/javascript"></script>
     <div class="credits" style="display: none">

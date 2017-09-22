@@ -1,0 +1,35 @@
+/* Pages -> Work Styles */
+
+.zign {
+	position: relative;
+}
+
+.zign .header {
+    border-bottom: solid 1px #f8f8f8;
+}
+
+.zign .headerInner {
+    padding: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.zign .logo {
+    font-weight: bold;
+}
+
+.zign ul {
+    margin: 0;
+    padding: 0;
+}
+.zign li {
+    display: inline-block;
+    padding: 0 10px;
+}

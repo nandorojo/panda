@@ -89,9 +89,9 @@ $(document).ready(function () {
             $deckListItemClone.appendTo('.deckListCurrentItems'); // list item that links to the editor
             // init functions
             notyf.confirm('+ ' + $deckTitle); // notify user of success
-            $('[id^="deck-' + $deckIndex + '"]').find('[class^="card-"]').each(function () { // set the unique ID for each card that will then correspond to its output, etc
+            $('[id^="deck-' + $deckIndex + '"]').find('[class*="card-"]').each(function () { // set the unique ID for each card that will then correspond to its output, etc
                 var $this = $(this),
-                    i = $(this).parent().children('[class^="card-"]').index(this); // this indicates the order of this card and matches its editor to its output
+                    i = $(this).closest('[id^="deck-' + $deckIndex + '"]').find('[class^="card-"]').index(this); // this indicates the order of this card and matches its editor to its output
                 cardId(i, $this, $deckIndex)
             });
         } else {
@@ -123,6 +123,7 @@ $(document).ready(function () {
     // activate clickable current list item
 
     $('.configure').on('click', '.deckListCurrentItem', function (e) { // .delegate because of future dynamically added elements
+        if ($(this).hasClass('dragged')) return;
         if (e.target == this) {
             var $editorId = $(this).attr('id').replace('ListItem', 'Editor'),
                 $theEditor = $('#' + $editorId); // locate deck ID + editor
@@ -197,6 +198,18 @@ $(document).ready(function () {
         downloadFile('index.html', theHtmlPrinted)
     });
 
+    $('.configure').on('click', '.deckDelete', function () {
+        var $theDeckToDelete = $(this).closest('.deck-Editor'),
+            theDeckToDeleteListItemId = $theDeckToDelete.attr('id').replace('Editor', 'ListItem'),
+            $theDeckToDeleteListItem = $('#' + theDeckToDeleteListItemId),
+            theDeckToDeleteDisplayId = $theDeckToDelete.attr('id').replace('Editor', 'Display'),
+            $theDeckToDeleteDisplay = $('#' + theDeckToDeleteDisplayId);
+        $theDeckToDelete.remove();
+        $theDeckToDeleteDisplay.remove();
+        $theDeckToDeleteListItem.remove();
+        $('.stack').addClass('active');
+    });
+
     /*
     
     DOM (ready) static functions
@@ -242,6 +255,31 @@ $(document).ready(function () {
 
     $deckAdder.on('click', function () { // show list of options to create (i.e. generate) a new deck
         $deckListNew.slideToggle();
+    });
+
+    $('ul.deckListCurrentItems').sortable({
+        nested: false,
+        pullPlaceholder: false,
+        // set $item relative to cursor position
+        onDragStart: function ($item, container, _super) {
+            var offset = $item.offset(),
+                pointer = container.rootGroup.pointer;
+
+            adjustment = {
+                top: pointer.top - offset.top
+            };
+
+            _super($item, container);
+        },
+        onDrag: function ($item, position) {
+            $item.css({
+                top: position.top - adjustment.top
+            });
+        },
+        onCancel: function ($placeholder, container, $closestItemOrContainer) {
+            $('.deck-Editor').removeClass('active');
+            $('[data-stacktype="deckListCurrent"]').addClass('active');
+        }
     });
 
     if (window.location.hash) {

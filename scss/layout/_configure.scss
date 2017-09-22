@@ -27,6 +27,7 @@
         cursor: pointer;
         border-left: solid 3px transparent;
         font-size: initial;
+        background: $color-foreground;
         &:hover {
             border-left-color: inherit;
         }
@@ -129,14 +130,20 @@
     }
 }
 
+.dragging {
+    .deckListCurrentItems {
+        background: $color-primary;
+    }
+}
+
 .deckListCurrentItem {
     animation: listItemFlash 2s ease;
 }
 
-.deckListItemTitle-Editor { // this is the input field that lets you edit the title in the list area
+.deckListItemTitle-Editor {
+    // this is the input field that lets you edit the title in the list area
     position: absolute;
     width: 65%;
-    
 }
 
 .deckDelete {
