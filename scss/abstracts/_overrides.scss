@@ -20,3 +20,7 @@
 .hidden {
 	display: none;
 }
+
+.flashAnimation {
+    animation: listItemFlash 2s ease;
+}

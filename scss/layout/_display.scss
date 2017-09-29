@@ -3,14 +3,12 @@
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    transition: transform .5s ease;
     @include mq($from: tablet) {
         margin-left: 350px;
         min-height: 100vh;
     }
     // add flash efect when an item is added to the display
-    &>* {
-        animation: listItemFlash 1s ease;
-    }
     .dragging & {
         transform: scale(.7);
         transform-origin: top;

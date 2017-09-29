@@ -1,22 +1,25 @@
 $(document).ready(function () {
 
+    'use strict';
+
     // global variables
 
-    var $book = $('.book'),
-        $stackTrigger = $('.book li'),
-        $stack = $('.stack'),
-        $deckAdder = $('.deck-Adder'),
-        $deck = $('.deck-Editor'),
-        $deckIndex = 0,
-        $configureTitle = $('.configureTitle'),
-        $deckListNew = $('[data-stacktype="deckListNew"]'),
-        $deckCreator = $deckListNew.find('[data-decktypecreator]'),
-        $deckListCurrent = $('[data-stacktype="deckListCurrent"]'),
-        $output = $('.output'),
-        googleFontsUrl = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBmRHB8iK34zJhT3i_QDCESzCS9dmkPzUY",
+    var deckindex = 0,
+        adjustment, // for sortable
+        hash,
+        $newPage,
         notyf = new Notyf({
             delay: 3000
         });
+
+    if (window.location.hash) {
+        hash = window.location.hash.substring(1).replace('#', '').replace('.html', '');
+        $newPage = $("#" + hash);
+        if ($newPage.length === 0) { return; }
+        $('page').removeClass('active');
+        $newPage.addClass('active');
+        console.log(hash);
+    }
 
     // file upload
     /*    var singleWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
@@ -57,57 +60,63 @@ $(document).ready(function () {
         It returns a string of text that should get placed as HTML into a text block */
         var reformattedHTML = html.trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace(/(?:\r\n|\r|\n)/g, '<br />');
         return reformattedHTML;
-    };
+    }
 
     // card ID creator
 
     function cardId(cardIndex, e, currentDeckIndex) {
         var theIdSuffix = e.closest('[id^=deck-]').attr('id').split('-')[2];
-        if (theIdSuffix == undefined) {
+        if (theIdSuffix === undefined) {
             theIdSuffix = '';
         } else {
             theIdSuffix = '-' + theIdSuffix;
         }
         e.attr('id', 'card-' + currentDeckIndex + cardIndex + theIdSuffix);
-    };
+    }
 
     /* Deck Creator */
 
     function deckCreator(decktype) {
-        $deckIndex = $deckIndex + 1;
+        deckindex = deckindex + 1;
         // Add deck to the "current" stack
         var $template = $('[data-decktypetemplate = "' + decktype + '"]'),
-            $templateClone = $template.clone().removeAttr('data-decktypetemplate').attr('id', 'deck-' + $deckIndex + '-Display'),
+            $templateClone = $template.clone().removeAttr('data-decktypetemplate').attr('id', 'deck-' + deckindex + '-Display'),
             $templateEditor = $('[data-decktypetemplateeditor = "' + decktype + '"]'),
-            $templateEditorClone = $templateEditor.clone().attr('id', 'deck-' + $deckIndex + '-Editor'),
+            $templateEditorClone = $templateEditor.clone().attr('id', 'deck-' + deckindex + '-Editor'),
             $deckTitle = $('[data-decktypecreator = "' + decktype + '"]').text().trim(),
-            $deckListItemClone = $('[data-decktypecreator = "' + decktype + '"]').clone().removeAttr('data-decktypecreator').attr('id', 'deck-' + $deckIndex + '-ListItem').addClass('deckListCurrentItem');
+            $deckListItemClone = $('[data-decktypecreator = "' + decktype + '"]').clone().removeAttr('data-decktypecreator').attr('id', 'deck-' + deckindex + '-ListItem').addClass('deckListCurrentItem');
         if ($template.length > 0 && $templateEditor.length > 0) {
-            $templateEditorClone.find('textarea, input').val('')
-            $templateClone.appendTo('.display'); // visible in the display screen
+            $templateEditorClone.find('textarea, input').val('');
+            $templateClone.appendTo('.display').addClass('flashAnimation'); // visible in the display screen
+            $templateClone.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass('flashAnimation'); // remove animation after doing it once
+            });
             $templateEditorClone.appendTo('.deckEditors'); // the editor is added to the stack
-            $deckListItemClone.appendTo('.deckListCurrentItems'); // list item that links to the editor
+            $deckListItemClone.appendTo('.deckListCurrentItems').addClass('flashAnimation'); // list item that links to the editor
+            $deckListItemClone.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass('flashAnimation'); // remove animation after doing it once
+            });
             // init functions
             notyf.confirm('+ ' + $deckTitle); // notify user of success
-            $('[id^="deck-' + $deckIndex + '"]').find('[class*="card-"]').each(function () { // set the unique ID for each card that will then correspond to its output, etc
+            $('[id^="deck-' + deckindex + '"]').find('[class*="card-"]').each(function () { // set the unique ID for each card that will then correspond to its output, etc
                 var $this = $(this),
-                    i = $(this).closest('[id^="deck-' + $deckIndex + '"]').find('[class^="card-"]').index(this); // this indicates the order of this card and matches its editor to its output
-                cardId(i, $this, $deckIndex)
+                    i = $(this).closest('[id^="deck-' + deckindex + '"]').find('[class^="card-"]').index(this); // this indicates the order of this card and matches its editor to its output
+                cardId(i, $this, deckindex);
             });
         } else {
-            notyf.alert("Looks like we haven't coded that one yet")
+            notyf.alert("Looks like we haven't coded that one yet");
         }
-    };
+    }
 
     // google Fonts API
 
     function googleFonts() {
-        $.getJSON(googleFontsUrl, function (data) {
+        $.getJSON('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBmRHB8iK34zJhT3i_QDCESzCS9dmkPzUY', function (data) {
             $.each(data.items, function (i, font) {
-                var fontName = font.family
+                var fontName = font.family;
             });
         });
-    };
+    }
 
     /* 
     
@@ -120,17 +129,50 @@ $(document).ready(function () {
     initialized when the document is ready.
     */
 
+    $('.configure').on('click', function (e) {
+        // Should back button be shown or not?
+        if (!$('.book').hasClass('active')) {
+            $('.configureBack').addClass('active');
+        } else {
+            $('.configureBack').removeClass('active');
+        }
+    });
+
     // activate clickable current list item
 
     $('.configure').on('click', '.deckListCurrentItem', function (e) { // .delegate because of future dynamically added elements
-        if ($(this).hasClass('dragged')) return;
-        if (e.target == this) {
-            var $editorId = $(this).attr('id').replace('ListItem', 'Editor'),
-                $theEditor = $('#' + $editorId); // locate deck ID + editor
-            if ($theEditor.length > 0) {
-                $(this).closest('.stack').removeClass('active');
-                $theEditor.addClass('active');
-            }
+        var $titleElement,
+            currentTitle,
+            $editableTitle,
+            $editorId,
+            $theEditor; // locate deck ID + editor
+
+        // returning function stops the rest from being rendered
+        if ($(this).hasClass('dragged')) {
+            return;
+        } // don't open deck editor if being dragged
+
+        if (!$(e.target).hasClass('deckListItemTitle')) {
+            $titleElement = $(this).closest('[id^="deck-"]').find('.deckListItemTitle');
+            currentTitle = $titleElement.text().trim();
+            $editableTitle = $("<input class='deckListItemTitle-Editor' type='text'>");
+            $editableTitle.val(currentTitle);
+            $titleElement.replaceWith($editableTitle);
+            $editableTitle.focus();
+            return;
+        }
+
+        // if text is being edited
+        if ($('.deckListCurrentItem input').is(':focus')) {
+            return;
+        }
+
+        // else, render the function to show the deck's editor: 
+        $editorId = $(this).attr('id').replace('ListItem', 'Editor');
+        $theEditor = $('#' + $editorId); // locate deck ID + editor
+        if ($theEditor.length > 0) {
+            $(this).closest('.stack').removeClass('active');
+            $theEditor.addClass('active');
         }
     });
 
@@ -152,12 +194,18 @@ $(document).ready(function () {
             // set the display ID according to the editor id
             theCardDisplayId = $(this).closest('.card-Editor').attr('id').replace('Editor', 'Display'),
             $theCardDisplay = $('#' + theCardDisplayId);
-        if ($theTyped == '') { // keep button size from shrinking entirely by making the minimum a space bar
+        if ($theTyped === '') { // keep button size from shrinking entirely by making the minimum a space bar
             $theCardDisplay.hide();
         } else {
             $theCardDisplay.show();
         }
         $theCardDisplay.text($theTyped);
+    });
+
+    $('.configure').on('keypress', 'input, textarea', function (e) {
+        if (e.keyCode == 13) { // TODO fix the random error coming up here triggered by a fucked up .focusout
+            $(this).blur();
+        }
     });
 
     // What to do when you stop typing in text areas and inputs within the .configure
@@ -167,17 +215,7 @@ $(document).ready(function () {
             $theCardDisplay = $('#' + theCardDisplayId);
         if ($theCardDisplay.length > 0) {
             $theCardDisplay.unwrap(); // remove the edited display CSS when you stop typing
-        };
-    });
-
-    // allow someone to edit the name of a deck (for the editor, mainly)
-    $('.configure').on('click', '.pencilIcon', function () {
-        var $titleElement = $(this).closest('[id^="deck-"]').find('.deckListItemTitle'),
-            currentTitle = $titleElement.text().trim(),
-            $editableTitle = $("<input class='deckListItemTitle-Editor' type='text'>");
-        $editableTitle.val(currentTitle);
-        $titleElement.replaceWith($editableTitle);
-        $editableTitle.focus();
+        }
     });
 
     // What to do when you stop typing in text areas and inputs within the .configure
@@ -191,11 +229,11 @@ $(document).ready(function () {
     });
 
     $('.configure').on('click', '.exportTrigger', function () {
-        var theHtml = $('.display').clone().find('.fullscreenTrigger').remove(),
+        var theHtml = $('.display').clone().remove('.fullscreenTrigger'),
+            theHtmlPrinted = theHtml.html(),
             stylesheet = $('[data-decktypestylesheetprefix="prefix"]').html();
         theHtml.prepend(stylesheet);
-        theHtmlPrinted = theHtml.html();
-        downloadFile('index.html', theHtmlPrinted)
+        downloadFile('index.html', theHtmlPrinted);
     });
 
     $('.configure').on('click', '.deckDelete', function () {
@@ -227,7 +265,7 @@ $(document).ready(function () {
         }
     });
 
-    $deckListNew.find('li').on('click', function () { // when clicking to create a new element
+    $('[data-stacktype="deckListNew"]').find('li').on('click', function () { // when clicking to create a new element
         var $deckType = $(this).attr('data-decktypecreator');
         if (typeof $deckType !== typeof undefined && $deckType !== false) {
             deckCreator($deckType); // create new deck function
@@ -237,29 +275,29 @@ $(document).ready(function () {
 
     // show + hide configure to make it full screen
     $('.fullscreenTrigger').on('click', function () {
-        $(this).closest('page').toggleClass('fullscreen')
+        $(this).closest('page').toggleClass('fullscreen');
     });
 
     // show the following step when viewing the initial app menu
-    $stackTrigger.on('click', function () {
+    $('.book li').on('click', function () {
         var $theTrigger = $(this).attr('data-stacktypetrigger'), // this indicates the stack to be shown
             $theStack = $('[data-stacktype="' + $theTrigger + '"]'),
             $theHeader = $(this).text().trim(); // this changes the text banner to show the user what step they're in; // this selects the stack to be shown
-        if ($theStack.length == 1) { // if the menu exists
-            $book.removeClass('active'); // hide this main menu
-            $stack.removeClass('active'); // hide all stakc
+        if ($theStack.length === 1) { // if the menu exists
+            $('.book').removeClass('active'); // hide this main menu
+            $('.stack').removeClass('active'); // hide all stakc
             $theStack.addClass('active');
-            $configureTitle.text($theHeader);
+            $('.configureTitle').text($theHeader);
         }
     });
 
-    $deckAdder.on('click', function () { // show list of options to create (i.e. generate) a new deck
-        $deckListNew.slideToggle();
+    $('.deck-Adder').on('click', function () { // show list of options to create (i.e. generate) a new deck
+        $('[data-stacktype="deckListNew"]').slideToggle();
     });
 
     $('ul.deckListCurrentItems').sortable({
         nested: false,
-        pullPlaceholder: false,
+        pullPlaceholder: '<li class="deckListCurrentItem" />',
         // set $item relative to cursor position
         onDragStart: function ($item, container, _super) {
             var offset = $item.offset(),
@@ -279,65 +317,46 @@ $(document).ready(function () {
         onCancel: function ($placeholder, container, $closestItemOrContainer) {
             $('.deck-Editor').removeClass('active');
             $('[data-stacktype="deckListCurrent"]').addClass('active');
+        },
+        onDrop: function ($item, container, _super, event) {
+            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+            $("body").removeClass(container.group.options.bodyClass);
+
+            // set order of re-ordered list items
+            $('.deckListCurrentItem').each(function (i) {
+                $(this).attr('data-deckOrder-ListItem', i);
+                var theDisplayId = $(this).attr('id').replace('ListItem', 'Display');
+                $('#' + theDisplayId).attr('data-deckOrder-Display', i);
+            });
+
+            // REARRANGE CORRESPONDING DECK DISPLAYS
+            // dependency: tinysort
+
+            tinysort('.deck-Display', {
+                attr: 'data-deckOrder-Display'
+            });
+
+            // show a flash animation on the list item and display of what was moved
+            // first is the HTML ID # of display, second of list item
+            $('#' + $item.attr('id').replace('ListItem', 'Display') + ', #' + $item.attr('id')).addClass('flashAnimation');
+            $('#' + $item.attr('id').replace('ListItem', 'Display') + ', #' + $item.attr('id')).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass('flashAnimation'); // remove animation after doing it once
+            });
         }
-    });
-
-    if (window.location.hash) {
-        var hash = window.location.hash.substring(1), //Puts hash in variable, and removes the # character
-            splitHash = hash.replace('#', '').replace('.html', ''),
-            $newPage = $("#" + splitHash);
-        if ($newPage.length != 0) {
-            $('page').removeClass('active');
-            $newPage.addClass('active');
-        };
-    };
-
-    // initialize color droppers
-    $('.dropper').spectrum({
-        showPalette: true,
-        showInput: true,
-        preferredFormat: "hex",
-        localStorageKey: "spectrum.homepage", // Any Spectrum with the same string will share selection
-
-        // this function will happen whenever a color is chosen from any color dropper
-        // it will determine, based on the parent element of the selected color dropper, which function to call
-        // the functions it's choosing from will then change the corresponding CSS attributes of the cover
-
-        move: function (color) {
-            var $this = $(this),
-                $bgColorExists = $this.closest('#coverBackgroundColor').length,
-                $textColorExists = $this.closest('#coverTextColor').length;
-            if ($bgColorExists == 1) { // if the background dropper exists
-                $coverBackgroundColor = $('#coverBackgroundColor .dropper').spectrum('get').toHexString();
-                coverBackgroundColor($coverBackgroundColor)
-            } else if ($textColorExists == 1) {
-                $coverTextColor = $('#coverTextColor .dropper').spectrum('get').toHexString();
-                coverTextColor($coverTextColor)
-            };
-        }
-    });
-
-    // show set values as text in the droppers
-
-    $('.dropper').each(function () {
-        var $color = $(this).spectrum('get').toHexString();
-        $(this).parent().find('.sp-preview-inner').html('<div>' + $color + '</div>')
     });
 
     // go to correct (in-page) link when you click on a link
-    $('a[href$=".html"]').on('click', function (e) { // simulate page changes without actually changing page
+    $('[data-pageTarget]').on('click', function (e) { // simulate page changes without actually changing page
 
-        var $currentPage = $('page.active'),
-            $link = $(this).attr('href').replace('.html', ''),
-            $targetPage = $('#' + $link),
-            $this = $(this);
-        if ($targetPage.length != 0) {
+        var link = $(this).attr('data-pagetarget'),
+            $targetPage = $('#' + link);
+        if ($targetPage.length !== 0) {
             e.preventDefault(); // if the <page> exists
-            if ($this.attr('target') != '_blank' && !$targetPage.hasClass('active')) { // if it isn't target blank or the current page
+            if ($(this).attr('target') !== '_blank' && !$targetPage.hasClass('active')) { // if it isn't target blank or the current page
                 $('page').removeClass('active');
                 $targetPage.addClass('active');
             }
-        };
-        window.location.hash = '#' + $link;
+        }
+        window.location.hash = link;
     });
 });
