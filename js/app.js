@@ -12,7 +12,7 @@ $(document).ready(function () {
             delay: 3000
         }),
         pandaCodeDisplay = [];
-    
+
     if (localStorage) {
         if (localStorage.getItem('deckIndex')) {
             deckIndex = parseFloat(localStorage.getItem('deckIndex'));
@@ -107,21 +107,23 @@ $(document).ready(function () {
         // parse a stringified json object
         return JSON.parse(localStorage.getItem(key));
     }
-    
-    function resetLocalStorage(key){
+
+    function resetLocalStorage(key) {
         var resetValue = '';
         if (key === 'deckIndex') {
             resetValue = 0;
         }
         setLocalStorage(key, resetValue);
     }
-    
+
     function localStoreDecks($storeMe) {
         // object to capture the Deck and its values
-        var storeThisObject = {cards: []};
+        var storeThisObject = {
+            cards: []
+        };
         storeThisObject.id = $storeMe.attr('id');
         storeThisObject.type = $('#' + $storeMe.attr('id').replace('Display', 'Editor')).attr('data-decktypetemplateeditor');
-        $storeMe.find('.card-Display').each(function(number){
+        $storeMe.find('.card-Display').each(function (number) {
             storeThisObject.cards.push($(this).text().trim());
         });
         storeThisObject.deckIndex = deckIndex;
@@ -319,7 +321,9 @@ $(document).ready(function () {
 
     // Typography settings
 
-    $('[data-stacktype="typography"] select').val(getLocalStorage('typography').font);
+    if (getLocalStorage('typography').font) {
+        $('[data-stacktype="typography"] select').val(getLocalStorage('typography').font);
+    }
 
     $('[data-stacktype="typography"] select').on('change', function () {
         setLocalStorage('typography', {
@@ -421,10 +425,10 @@ $(document).ready(function () {
             $('#' + $item.attr('id').replace('ListItem', 'Display') + ', #' + $item.attr('id')).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                 $(this).removeClass('flashAnimation'); // remove animation after doing it once
             });
-            
+
             // STORE THE REARRANGED ELEMENTS
             pandaCodeDisplay = [];
-            $('.deck-Display').each(function(){
+            $('.deck-Display').each(function () {
                 localStoreDecks($(this));
             });
         }
