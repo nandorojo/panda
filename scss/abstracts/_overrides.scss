@@ -24,3 +24,7 @@
 .flashAnimation {
     animation: listItemFlash 2s ease;
 }
+
+.flashBeingMoved {
+    background-color: $color-primary!important;
+}

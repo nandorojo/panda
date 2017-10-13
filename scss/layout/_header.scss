@@ -1,18 +1,31 @@
 /* Layout -> Header Styles */
+
 header.header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 30px;
+    padding: 10px 30px;
+    padding-bottom: 0;
     @include transition-all;
+    -webkit-transition-delay: .5s;
     transition-delay: .5s;
     z-index: 1;
-    transform: translateY(-100%);
-    .logo {
-        font-weight: bold;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    .logoLetters {
+        font-weight: 900;
+        font-size: 1.25em;
+        font-family: 'freight-display-pro'
     }
-    &.active {
-        transform: translateY(0)
+    .logo {
+        width: 50px;
+        @include mq ($from: tablet) {
+            width: 75px;
+        }
     }
 }

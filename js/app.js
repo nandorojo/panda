@@ -4,19 +4,31 @@ $(document).ready(function () {
 
     // global variables
 
-    var deckindex = 0,
+    var deckIndex = 0,
         adjustment, // for sortable
         hash,
         $newPage,
         notyf = new Notyf({
             delay: 3000
-        });
+        }),
+        pandaCodeDisplay = [];
+    
+    if (localStorage) {
+        if (localStorage.getItem('deckIndex')) {
+            deckIndex = parseFloat(localStorage.getItem('deckIndex'));
+        }
+        if (getLocalStorage('decks')) {
+            pandaCodeDisplay = getLocalStorage('decks');
+        }
+    }
 
     if (window.location.hash) {
         hash = window.location.hash.substring(1).replace('#', '').replace('.html', '');
         $newPage = $("#" + hash);
-        if ($newPage.length === 0) { return; }
-        $('page').removeClass('active');
+        if ($newPage.length === 0) {
+            return;
+        }
+        $('.page').removeClass('active');
         $newPage.addClass('active');
         console.log(hash);
     }
@@ -49,6 +61,7 @@ $(document).ready(function () {
         element.click();
 
         document.body.removeChild(element);
+        return;
     }
 
     /* HTML reformatter */
@@ -64,27 +77,71 @@ $(document).ready(function () {
 
     // card ID creator
 
-    function cardId(cardIndex, e, currentDeckIndex) {
+    function cardId(cardIndex, e, currentdeckIndex) {
         var theIdSuffix = e.closest('[id^=deck-]').attr('id').split('-')[2];
         if (theIdSuffix === undefined) {
             theIdSuffix = '';
         } else {
             theIdSuffix = '-' + theIdSuffix;
         }
-        e.attr('id', 'card-' + currentDeckIndex + cardIndex + theIdSuffix);
+        e.attr('id', 'card-' + currentdeckIndex + '-' + cardIndex + theIdSuffix);
+        return;
+    }
+
+    /* Set local storage */
+    // (the parameter that should be edited, the value)
+    function setLocalStorage(key, value) {
+        // check if browser supports local storage
+        if (!localStorage) return;
+        // stringify an object if needed, since localstorage requires strings
+        if (typeof (value) === 'object') {
+            value = JSON.stringify(value)
+        }
+        localStorage.setItem(key, value);
+        return;
+    }
+
+    function getLocalStorage(key) {
+        // check if browser supports local storage
+        if (!localStorage) return;
+        // parse a stringified json object
+        return JSON.parse(localStorage.getItem(key));
+    }
+    
+    function resetLocalStorage(key){
+        var resetValue = '';
+        if (key === 'deckIndex') {
+            resetValue = 0;
+        }
+        setLocalStorage(key, resetValue);
+    }
+    
+    function localStoreDecks($storeMe) {
+        // object to capture the Deck and its values
+        var storeThisObject = {cards: []};
+        storeThisObject.id = $storeMe.attr('id');
+        storeThisObject.type = $('#' + $storeMe.attr('id').replace('Display', 'Editor')).attr('data-decktypetemplateeditor');
+        $storeMe.find('.card-Display').each(function(number){
+            storeThisObject.cards.push($(this).text().trim());
+        });
+        storeThisObject.deckIndex = deckIndex;
+        pandaCodeDisplay.push(storeThisObject);
+        setLocalStorage('decks', pandaCodeDisplay);
+        console.log(getLocalStorage('decks'));
     }
 
     /* Deck Creator */
 
     function deckCreator(decktype) {
-        deckindex = deckindex + 1;
+        deckIndex = deckIndex + 1;
+        localStorage.setItem('deckIndex', deckIndex);
         // Add deck to the "current" stack
         var $template = $('[data-decktypetemplate = "' + decktype + '"]'),
-            $templateClone = $template.clone().removeAttr('data-decktypetemplate').attr('id', 'deck-' + deckindex + '-Display'),
+            $templateClone = $template.clone().removeAttr('data-decktypetemplate').attr('id', 'deck-' + deckIndex + '-Display'),
             $templateEditor = $('[data-decktypetemplateeditor = "' + decktype + '"]'),
-            $templateEditorClone = $templateEditor.clone().attr('id', 'deck-' + deckindex + '-Editor'),
+            $templateEditorClone = $templateEditor.clone().attr('id', 'deck-' + deckIndex + '-Editor'),
             $deckTitle = $('[data-decktypecreator = "' + decktype + '"]').text().trim(),
-            $deckListItemClone = $('[data-decktypecreator = "' + decktype + '"]').clone().removeAttr('data-decktypecreator').attr('id', 'deck-' + deckindex + '-ListItem').addClass('deckListCurrentItem');
+            $deckListItemClone = $('[data-decktypecreator = "' + decktype + '"]').clone().removeAttr('data-decktypecreator').attr('id', 'deck-' + deckIndex + '-ListItem').addClass('deckListCurrentItem');
         if ($template.length > 0 && $templateEditor.length > 0) {
             $templateEditorClone.find('textarea, input').val('');
             $templateClone.appendTo('.display').addClass('flashAnimation'); // visible in the display screen
@@ -96,16 +153,18 @@ $(document).ready(function () {
             $deckListItemClone.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                 $(this).removeClass('flashAnimation'); // remove animation after doing it once
             });
+            localStoreDecks($('#' + $templateClone.attr('id')));
             // init functions
             notyf.confirm('+ ' + $deckTitle); // notify user of success
-            $('[id^="deck-' + deckindex + '"]').find('[class*="card-"]').each(function () { // set the unique ID for each card that will then correspond to its output, etc
+            $('[id^="deck-' + deckIndex + '"]').find('[class*="card-"]').each(function () { // set the unique ID for each card that will then correspond to its output, etc
                 var $this = $(this),
-                    i = $(this).closest('[id^="deck-' + deckindex + '"]').find('[class^="card-"]').index(this); // this indicates the order of this card and matches its editor to its output
-                cardId(i, $this, deckindex);
+                    i = $(this).closest('[id^="deck-' + deckIndex + '"]').find('[class^="card-"]').index(this); // this indicates the order of this card and matches its editor to its output
+                cardId(i, $this, deckIndex);
             });
         } else {
             notyf.alert("Looks like we haven't coded that one yet");
         }
+        return;
     }
 
     // google Fonts API
@@ -203,7 +262,7 @@ $(document).ready(function () {
     });
 
     $('.configure').on('keypress', 'input, textarea', function (e) {
-        if (e.keyCode == 13) { // TODO fix the random error coming up here triggered by a fucked up .focusout
+        if (e.keyCode === 13) { // TODO fix the random error coming up here triggered by a fucked up .focusout
             $(this).blur();
         }
     });
@@ -255,13 +314,27 @@ $(document).ready(function () {
     
     */
 
+    //////////////////////////////////////
+    // STATIC SETTINGS
+
+    // Typography settings
+
+    $('[data-stacktype="typography"] select').val(getLocalStorage('typography').font);
+
+    $('[data-stacktype="typography"] select').on('change', function () {
+        setLocalStorage('typography', {
+            font: $(this).val()
+        });
+        console.log(getLocalStorage('typography'));
+    });
+
     $('.configureBack').on('click', function () {
         if ($('.stack').hasClass('active')) { // if it's on the second step, showing a stack
             $('.stack').removeClass('active');
             $('.book').addClass('active');
         } else if ($('.deck-Editor').hasClass('active')) {
             $('.deck-Editor').removeClass('active');
-            $('.stack').addClass('active');
+            $('[data-stacktype="deckListCurrent"]').addClass('active');
         }
     });
 
@@ -308,6 +381,11 @@ $(document).ready(function () {
             };
 
             _super($item, container);
+
+            // Highlight the actual object being moved in the display
+            var $theMovedDisplay = $('#' + $item.attr('id').replace('ListItem', 'Display'));
+            $theMovedDisplay.addClass('flashBeingMoved');
+
         },
         onDrag: function ($item, position) {
             $item.css({
@@ -338,9 +416,16 @@ $(document).ready(function () {
 
             // show a flash animation on the list item and display of what was moved
             // first is the HTML ID # of display, second of list item
+            $('#' + $item.attr('id').replace('ListItem', 'Display')).removeClass('flashBeingMoved');
             $('#' + $item.attr('id').replace('ListItem', 'Display') + ', #' + $item.attr('id')).addClass('flashAnimation');
             $('#' + $item.attr('id').replace('ListItem', 'Display') + ', #' + $item.attr('id')).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                 $(this).removeClass('flashAnimation'); // remove animation after doing it once
+            });
+            
+            // STORE THE REARRANGED ELEMENTS
+            pandaCodeDisplay = [];
+            $('.deck-Display').each(function(){
+                localStoreDecks($(this));
             });
         }
     });
@@ -353,7 +438,7 @@ $(document).ready(function () {
         if ($targetPage.length !== 0) {
             e.preventDefault(); // if the <page> exists
             if ($(this).attr('target') !== '_blank' && !$targetPage.hasClass('active')) { // if it isn't target blank or the current page
-                $('page').removeClass('active');
+                $('.page').removeClass('active');
                 $targetPage.addClass('active');
             }
         }

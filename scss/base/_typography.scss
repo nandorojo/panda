@@ -1,6 +1,7 @@
 /* Base -> Typography Styles */
+
 * {
-    font-family: map-get($font, 'familyPrimary')!important;
+    font-family: 'sofia-pro-soft';
 }
 
 body {
@@ -10,6 +11,33 @@ body {
 
 a {
     text-decoration: none;
+}
+
+h1,
+h2 {
+    font-family: 'freight-display-pro';
+    font-weight: 900;
+}
+
+h1 {
+    margin: 0.2em 0;
+}
+
+p {
+    line-height: 1.5em;
+}
+
+.bigHeader {
+    font-size: 2.5em;
+    @include mq($from: tablet) {
+        font-size: 3em;
+    }
+}
+
+.gradientText {
+    background: -webkit-linear-gradient(180deg, #a13bfd, #32dbf1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 // Highlighting text
