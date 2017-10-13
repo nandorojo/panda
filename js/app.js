@@ -321,7 +321,7 @@ $(document).ready(function () {
 
     // Typography settings
 
-    if (getLocalStorage('typography').font) {
+    if (getLocalStorage('typography')) {
         $('[data-stacktype="typography"] select').val(getLocalStorage('typography').font);
     }
 
